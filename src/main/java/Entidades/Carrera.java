@@ -9,5 +9,7 @@ package Entidades;
  * @author tonym
  */
 public class Carrera {
+    int id;
+    String nombre;
     
 }

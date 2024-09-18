@@ -9,5 +9,5 @@ package BDEntidades;
  * @author tonym
  */
 public class BDConection {
-    
+    protected int id;
 }
