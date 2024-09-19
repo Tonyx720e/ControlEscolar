@@ -6,7 +6,9 @@ package BDEntidades;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -16,6 +18,7 @@ public class BDConection {
     private static final String URL = "jdbc:mysql://localhost/bd_escuela";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
+    // conexion
     
     public static Connection getConnection() throws SQLException {
         Connection connection = null;
@@ -29,6 +32,7 @@ public class BDConection {
     }
 
     public static void closeConnection(Connection connection) {
+        
         if (connection != null) {
             try {
                 connection.close();
@@ -37,4 +41,7 @@ public class BDConection {
             }
         }
     }
+    
+    
+    
 }

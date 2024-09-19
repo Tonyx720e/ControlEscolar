@@ -9,6 +9,8 @@ package main.controlescolar;
  * @author tonym
  */
 import BDEntidades.BDConection;
+import BDEntidades.DBCarrera;
+import Entidades.Carrera;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,9 +19,9 @@ import java.util.Scanner;
 
 public class ControlEscolar {
     
-    public static void main(String[] args) {
-        
-         Connection connection = null;
+    public static void main(String[] args) throws SQLException {
+        // APLICACION CONEXION
+        Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
 
@@ -36,15 +38,7 @@ public class ControlEscolar {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (resultSet != null) resultSet.close();
-                if (statement != null) statement.close();
-                BDConection.closeConnection(connection);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        } 
     
         
         Scanner sc = new Scanner(System.in);
@@ -56,14 +50,17 @@ public class ControlEscolar {
             System.out.println("2- Actualizar carrera");
             System.out.println("3- Ver carrera");
             System.out.println("4- Borrar carrera");
+            System.out.println("5- Salir");
             op = sc.nextInt();
             sc.nextLine(); // Limpiar el buffer
             switch (op){
                 case 1:
                     System.out.println("Ingrese nombre de la carrera");
-                    String nombre;
+                    String nombre = sc.nextLine();
+                    Carrera carrera = new Carrera();
+                    carrera.setNombre(nombre);
                     
-                    //llamar metodo insert
+                    DBCarrera.insert(connection, carrera); // Llamar al método insert correctamente
                     break;
                 case 2:
                     //Update BD
@@ -74,6 +71,18 @@ public class ControlEscolar {
                 case 4:
                     // borrar carrera
                 break;
+                
+                case 5:
+                    
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+                BDConection.closeConnection(connection);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        
+                 break;
             }
         }while(op !=4);
         //String nombre = sc.nextLine();
