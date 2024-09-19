@@ -39,7 +39,27 @@ public class DBCarrera {
             while(rs.next()){
                 System.out.println(rs.getString("carrera"));
             }
+            //Update
+            
     
     }
     
+    public static void update(Connection conn, Carrera idC) throws SQLException{
+    
+        //SELECT
+            String sql;
+            sql = "SELECT * FROM carrera";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                System.out.println(rs.getString("carrera"));
+            }
+        //Update Carrera
+        String sqlUpdate;
+        sqlUpdate = "UPDATE carrera SET carrera = ('" + idC.getNombre() + "') WHERE id = ('" + idC.getId() + "')";
+        st.executeUpdate(sqlUpdate);
+        System.out.println("Registro Actualizado");
+    }
+    
 }
+    

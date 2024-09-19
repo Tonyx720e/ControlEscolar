@@ -63,7 +63,15 @@ public class ControlEscolar {
                     DBCarrera.insert(connection, carrera); // Llamar al método insert correctamente
                     break;
                 case 2:
-                    //Update BD
+                    System.out.println("ingrese numero  id de carrera");
+                    int id = sc.nextByte();
+                    sc.nextLine(); // Limpiar el buffer
+                    System.out.println("Ingrese nombre");
+                    String nombre2 = sc.nextLine();
+                    Carrera idC = new Carrera();
+                    idC.setNombre(nombre2);
+                    idC.setId(id);
+                    DBCarrera.update(connection, idC);
                     break;
                 case 3:
                     //ver carrera
