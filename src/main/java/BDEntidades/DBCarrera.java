@@ -6,6 +6,7 @@ package BDEntidades;
 
 import Entidades.Carrera;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -60,6 +61,28 @@ public class DBCarrera {
         st.executeUpdate(sqlUpdate);
         System.out.println("Registro Actualizado");
     }
+     public static void ver(Connection conn, Carrera verC) throws SQLException{
     
+        //SELECT
+            String sql;
+            sql = "SELECT * FROM carrera";
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                System.out.println(rs.getString("carrera"));
+            }
+        // Ver Carrera
+    String sqlVer = "SELECT c.carrera FROM carrera c WHERE id = ?";
+    try (PreparedStatement pstmt = conn.prepareStatement(sqlVer)) {
+        pstmt.setInt(1, verC.getId());
+        try (ResultSet rs2 = pstmt.executeQuery()) {
+            if (rs2.next()) {
+                System.out.println("Registro consultado: " + rs2.getString("carrera"));
+            } else {
+                System.out.println("No se encontró el registro.");
+            }
+        }
+    }
+  }
 }
     

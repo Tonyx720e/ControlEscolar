@@ -74,9 +74,15 @@ public class ControlEscolar {
                     DBCarrera.update(connection, idC);
                     break;
                 case 3:
-                    //ver carrera
-                    break;
+                   System.out.println("Ingresa el id de la carrera");
+                   id = sc.nextInt(); // Cambié a nextInt() para evitar problemas con nextByte()
+                   sc.nextLine(); // Limpiar el buffer
+                   Carrera verC = new Carrera();
+                   verC.setId(id); // Asignar el ID a verC
+                   DBCarrera.ver(connection, verC);
+                   break;
                 case 4:
+                    //System.out.println("Ingresa ");
                     // borrar carrera
                 break;
                 
