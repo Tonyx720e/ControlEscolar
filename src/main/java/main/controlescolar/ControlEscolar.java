@@ -27,6 +27,9 @@ public class ControlEscolar {
 
         try {
             connection = BDConection.getConnection();
+            DBCarrera miConexion = new DBCarrera(connection);
+            miConexion.setConnection(connection);
+                   
             if (connection != null) {
                 statement = connection.createStatement();
                 resultSet = statement.executeQuery("SELECT * FROM carrera");
@@ -60,7 +63,7 @@ public class ControlEscolar {
                     Carrera carrera = new Carrera();
                     carrera.setNombre(nombre);
                     
-                    DBCarrera.insert(connection, carrera); // Llamar al método insert correctamente
+                    DBCarrera.insert(carrera); // Llamar al método insert correctamente
                     break;
                 case 2:
                     System.out.println("ingrese numero  id de carrera");
@@ -71,7 +74,7 @@ public class ControlEscolar {
                     Carrera idC = new Carrera();
                     idC.setNombre(nombre2);
                     idC.setId(id);
-                    DBCarrera.update(connection, idC);
+                    DBCarrera.update(idC);
                     break;
                 case 3:
                    System.out.println("Ingresa el id de la carrera");
@@ -79,7 +82,7 @@ public class ControlEscolar {
                    sc.nextLine(); // Limpiar el buffer
                    Carrera verC = new Carrera();
                    verC.setId(id); // Asignar el ID a verC
-                   DBCarrera.ver(connection, verC);
+                   DBCarrera.ver(verC);
                    break;
                 case 4:
                     System.out.println("Ingresa id para borrar");
@@ -87,7 +90,7 @@ public class ControlEscolar {
                     sc.nextLine(); // Limpiar el buffer
                     Carrera deleteC = new Carrera();
                     deleteC.setId(id); // Asignar el ID a verC
-                    DBCarrera.deleteC(connection, deleteC);
+                    DBCarrera.deleteC(deleteC);
                     // borrar carrera
                 break;
                 

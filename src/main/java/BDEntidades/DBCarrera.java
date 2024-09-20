@@ -16,8 +16,20 @@ import java.sql.Statement;
  * @author tonym
  */
 public class DBCarrera {
+    private static Connection conn;
     
-    public static void insert(Connection conn, Carrera carrera) throws SQLException{
+    public DBCarrera(Connection conn){
+        DBCarrera.conn = null;
+        DBCarrera.conn = conn;
+    }
+    
+    public void setConnection(Connection conn){
+    DBCarrera.conn = conn;
+    }
+    public Connection getConn(){
+    return DBCarrera.conn;
+    }
+    public static void insert(Carrera carrera) throws SQLException{
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -25,7 +37,7 @@ public class DBCarrera {
          //SELECT
             String sql;
             sql = "SELECT * FROM carrera";
-            Statement st = conn.createStatement();
+            Statement st = DBCarrera.conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
                 System.out.println(rs.getString("carrera"));
@@ -45,12 +57,13 @@ public class DBCarrera {
     
     }
     
-    public static void update(Connection conn, Carrera idC) throws SQLException{
+    public static void update(Carrera idC) throws SQLException{
     
         //SELECT
             String sql;
             sql = "SELECT * FROM carrera";
-            Statement st = conn.createStatement();
+            // pendiente con las connection
+            Statement st = DBCarrera.conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
                 System.out.println(rs.getString("carrera"));
@@ -61,19 +74,19 @@ public class DBCarrera {
         st.executeUpdate(sqlUpdate);
         System.out.println("Registro Actualizado");
     }
-     public static void ver(Connection conn, Carrera verC) throws SQLException{
+     public static void ver(Carrera verC) throws SQLException{
     
         //SELECT
             String sql;
             sql = "SELECT * FROM carrera";
-            Statement st = conn.createStatement();
+            Statement st = DBCarrera.conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
                 System.out.println(rs.getString("carrera"));
             }
         // Ver Carrera
             String sqlVer = "SELECT c.carrera FROM carrera c WHERE id = ?";
-            try (PreparedStatement pstmt = conn.prepareStatement(sqlVer)) {
+            try (PreparedStatement pstmt = DBCarrera.conn.prepareStatement(sqlVer)) {
             pstmt.setInt(1, verC.getId());
             try (ResultSet rs2 = pstmt.executeQuery()) {
             if (rs2.next()) {
@@ -85,14 +98,14 @@ public class DBCarrera {
     }
   }
     // Delete
-     public static void deleteC(Connection conn, Carrera deleteC) throws SQLException{
+     public static void deleteC(Carrera deleteC) throws SQLException{
          Statement st = null;
          ResultSet rs = null;
         //SELECT
         try {
         // SELECT
         String sql = "SELECT * FROM carrera";
-        st = conn.createStatement();
+        st = DBCarrera.conn.createStatement();
         rs = st.executeQuery(sql);
         while (rs.next()) {
             System.out.println(rs.getString("carrera"));
@@ -110,7 +123,7 @@ public class DBCarrera {
         try {
             if (rs != null) rs.close();
             if (st != null) st.close();
-            if (conn != null) conn.close();
+            if (DBCarrera.conn != null) DBCarrera.conn.close();
             System.out.println("Conexión cerrada");
         } catch (SQLException e) {
             e.printStackTrace();
