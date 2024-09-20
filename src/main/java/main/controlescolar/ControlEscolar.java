@@ -82,7 +82,12 @@ public class ControlEscolar {
                    DBCarrera.ver(connection, verC);
                    break;
                 case 4:
-                    //System.out.println("Ingresa ");
+                    System.out.println("Ingresa id para borrar");
+                    id = sc.nextInt();
+                    sc.nextLine(); // Limpiar el buffer
+                    Carrera deleteC = new Carrera();
+                    deleteC.setId(id); // Asignar el ID a verC
+                    DBCarrera.deleteC(connection, deleteC);
                     // borrar carrera
                 break;
                 
@@ -98,10 +103,10 @@ public class ControlEscolar {
         
                  break;
             }
-        }while(op !=4);
+        }while(op !=5);
         //String nombre = sc.nextLine();
         
         
-        System.out.println("Hello World!");
+        System.out.println("Conexion cerrada");
     }
 }

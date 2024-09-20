@@ -72,17 +72,55 @@ public class DBCarrera {
                 System.out.println(rs.getString("carrera"));
             }
         // Ver Carrera
-    String sqlVer = "SELECT c.carrera FROM carrera c WHERE id = ?";
-    try (PreparedStatement pstmt = conn.prepareStatement(sqlVer)) {
-        pstmt.setInt(1, verC.getId());
-        try (ResultSet rs2 = pstmt.executeQuery()) {
+            String sqlVer = "SELECT c.carrera FROM carrera c WHERE id = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sqlVer)) {
+            pstmt.setInt(1, verC.getId());
+            try (ResultSet rs2 = pstmt.executeQuery()) {
             if (rs2.next()) {
-                System.out.println("Registro consultado: " + rs2.getString("carrera"));
+                System.out.println("la carrera consultada es: " + rs2.getString("carrera"));
             } else {
-                System.out.println("No se encontró el registro.");
+                System.out.println("Carrera no encontrada.");
             }
         }
     }
   }
+    // Delete
+     public static void deleteC(Connection conn, Carrera deleteC) throws SQLException{
+         Statement st = null;
+         ResultSet rs = null;
+        //SELECT
+        try {
+        // SELECT
+        String sql = "SELECT * FROM carrera";
+        st = conn.createStatement();
+        rs = st.executeQuery(sql);
+        while (rs.next()) {
+            System.out.println(rs.getString("carrera"));
+        }
+
+        // Borrar registro
+        String sqlDelete = "DELETE FROM CARRERA WHERE ID ="  + deleteC.getId() ;
+        
+        st.executeUpdate(sqlDelete);
+        System.out.println("Registro borrado");
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (st != null) st.close();
+            if (conn != null) conn.close();
+            System.out.println("Conexión cerrada");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+  }
 }
+
+            
+  
+     
+
     
